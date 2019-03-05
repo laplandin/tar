@@ -1,0 +1,23 @@
+{
+  "name": "tar-func",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/laplandin/tar.git"
+  },
+  "author": "laplandin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/laplandin/tar/issues"
+  },
+  "homepage": "https://github.com/laplandin/tar#readme",
+  "dependencies": {
+    "mocha": "^6.0.2",
+    "tar": "^4.1.1"
+  }
+}
