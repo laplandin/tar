@@ -18,6 +18,7 @@
   "homepage": "https://github.com/laplandin/tar#readme",
   "dependencies": {
     "mocha": "^6.0.2",
+    "rimraf": "^2.2.8",
     "tar": "^4.1.1"
   }
 }
