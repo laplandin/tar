@@ -11,26 +11,29 @@ const src = process.argv[2];
 const dst = process.argv[3];
 
 const s = path.resolve(__dirname, 'test-data');
-const d = path.resolve(__dirname, 'output-data');
+const d = path.resolve(__dirname, 'output-data', 'static.tar.gz');
 
 async function addToTar(src, dst) {
 	try {
-		const exist = await fsExistsAsync(dst);
+		const dstDirsPath = path.parse(dst).dir;
+		const srcTargetDir = path.parse(src).base
+
+		const exist = await fsExistsAsync(dstDirsPath);
 		console.log('exist', exist);
 		if (exist) {
 			console.log('exist');
-			await rimrafAsync(dst);
+			await rimrafAsync(dstDirsPath);
 		}
-		await fsMkdirAsync(dst);
+		await fsMkdirAsync(dstDirsPath);
 		
 		const tarCreateAsync = promisify(tar.c);
 		await tarCreateAsync(
 			{
 				gzip: true,
-				file: path.resolve(dst, 'static.tgz'),
-				cwd: path.resolve(__dirname),
+				file: path.resolve(dst),
+				cwd: path.resolve(dstDirsPath, '..'),
 			},
-			['test-data']
+			[srcTargetDir]
 		)
 	} catch (err) {
 		if (err.code === 'ENOENT') {
