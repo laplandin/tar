@@ -16,12 +16,10 @@ const d = path.resolve(__dirname, 'output-data', 'static.tar.gz');
 async function addToTar(src, dst) {
 	try {
 		const dstDirsPath = path.parse(dst).dir;
-		const srcTargetDir = path.parse(src).base
+		const srcTargetDir = path.parse(src).base;
 
 		const exist = await fsExistsAsync(dstDirsPath);
-		console.log('exist', exist);
 		if (exist) {
-			console.log('exist');
 			await rimrafAsync(dstDirsPath);
 		}
 		await fsMkdirAsync(dstDirsPath);
@@ -36,11 +34,7 @@ async function addToTar(src, dst) {
 			[srcTargetDir]
 		)
 	} catch (err) {
-		if (err.code === 'ENOENT') {
-			await fsMkdirAsync(dst);
-		} else {
-			console.error(`ERROR | ${err}`);
-		}
+		console.error(`ERROR | ${err}`);
 	}
 }
 
