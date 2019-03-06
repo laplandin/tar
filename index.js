@@ -1,9 +1,6 @@
-const fs = require('fs');
 const path = require('path');
 const tar = require('tar');
 const { promisify } = require('util');
-const fsExistsAsync = promisify(fs.exists);
-const fsMkdirAsync = promisify(fs.mkdir);
 const fse = require('fs-extra');
 
 const src = process.argv[2];
@@ -17,11 +14,11 @@ async function addToTar(src, dst) {
 		const dstDirsPath = path.parse(dst).dir;
 		const srcTargetDir = path.parse(src).base;
 
-		const exist = await fsExistsAsync(dstDirsPath);
+		const exist = await fse.pathExists(dstDirsPath);
 		if (exist) {
 			await fse.remove(dstDirsPath);
 		}
-		await fsMkdirAsync(dstDirsPath);
+		await fse.mkdir(dstDirsPath);
 		
 		const tarCreateAsync = promisify(tar.c);
 		await tarCreateAsync(
