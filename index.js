@@ -1,11 +1,10 @@
 const fs = require('fs');
 const path = require('path');
 const tar = require('tar');
-const rimraf = require('rimraf');
 const { promisify } = require('util');
 const fsExistsAsync = promisify(fs.exists);
 const fsMkdirAsync = promisify(fs.mkdir);
-const rimrafAsync = promisify(rimraf);
+const fse = require('fs-extra');
 
 const src = process.argv[2];
 const dst = process.argv[3];
@@ -20,7 +19,7 @@ async function addToTar(src, dst) {
 
 		const exist = await fsExistsAsync(dstDirsPath);
 		if (exist) {
-			await rimrafAsync(dstDirsPath);
+			await fse.remove(dstDirsPath);
 		}
 		await fsMkdirAsync(dstDirsPath);
 		
